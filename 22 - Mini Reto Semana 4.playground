@@ -1,0 +1,70 @@
+//: Mini Reto Semana 4
+
+import UIKit
+
+//1 - Declara la enumeración: Velocidades, sus valores serán de tipo Int.
+/*Valores:
+- Apagado = 0, representa la velocidad 0.
+- VelocidadBaja = 20, representa una velocidad de 20km por hora
+- VelocidadMedia = 50, representa una velocidad de 50km por hora
+- VelocidadAlta = 120, representa una velocidad de 50km por hora*/
+enum Velocidades : Int {
+    case
+        Apagado = 0,
+        VelocidadBaja = 20,
+        VelocidadMedia = 50,
+        VelocidadAlta = 120
+    
+    //2 - Declarar un inicializador que recibe un velocidad: 
+    //init( velocidadInicial : Velocidades )
+    init(velocidadInicial : Velocidades) {
+        //3 - El inicializador se debe asignar a self el valor de velocidadInicial
+        self = velocidadInicial
+    }
+}
+
+//4 - Declara la clase: Auto
+/*La clase Auto tiene los siguientes atributos:
+- Una variable que sea una instancia de la enumeración Velocidades, llamada: velocidad*/
+class Auto {
+    var velocidad : Velocidades
+    
+    /*5 - init( ) agrega la función inicializadora que crea una instancia de Velocidades: velocidad, debe iniciar en Apagado*/
+    init() {
+        self.velocidad = Velocidades.Apagado
+    }
+    
+    //6 - func cambioDeVelocidad( ) -> ( actual : Int, velocidadEnCadena: String),
+    func cambioDeVelocidad() -> (actual : Int, velocidadEnCadena: String) {
+        var velocidadEnCadena : String = ""
+        
+        switch velocidad {
+        
+        case .Apagado:
+            velocidad = Velocidades.VelocidadBaja
+            velocidadEnCadena = "Velocidad baja"
+            
+        case .VelocidadBaja, .VelocidadAlta:
+            velocidad = Velocidades.VelocidadMedia
+            velocidadEnCadena = "Velocidad media"
+            
+        case .VelocidadMedia:
+            velocidad = Velocidades.VelocidadAlta
+            velocidadEnCadena = "Velocidad alta"
+        }
+        
+        return (velocidad.rawValue, velocidadEnCadena)
+    }
+}
+
+print("Estado Inicial: \(Velocidades.Apagado.rawValue), \(Velocidades.Apagado)")
+
+//7 - Crea una instancia de la clase Auto, llamada auto.
+var auto = Auto()
+
+//8 - Itera 20 veces usando un for
+for iteracion in 1...20 {
+    //9 - Llama a la función cambioDeVelocidad e imprime los valores de la tupla en la consola
+    let autoImpresion = auto.cambioDeVelocidad()
+    print("\(iteracion) : \(autoImpresion.actual), \(autoImpresion.velocidadEnCadena)")
+}
